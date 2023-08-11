@@ -26,6 +26,11 @@ function LoanDetail(props) {
         props.dispatch({ type: 'LOAN_AMOUNT', value });
     }
 
+    function handleIntrestChange(event) {
+        let value = event.target.value;
+        props.dispatch({ type: 'INTEREST_RATE', value });
+    }
+
     function handleRemainingTermChange(event) {
         let value = event.target.value
         handleInterestRateChange(findRate(value));
@@ -88,21 +93,26 @@ function LoanDetail(props) {
                 </Box>
                 <Box sx={{ p: 2 }}>
                     <FormControl fullWidth>
-                        <InputLabel id="remaining-term-label">{intl.formatMessage({id: 'remaining-term'})}</InputLabel>
+                        <InputLabel id="remaining-term-label">
+                            {intl.formatMessage({ id: 'remaining-term' })}
+                        </InputLabel>
                         <Select
-                            fullWidth  variant="standard"
+                            fullWidth
+                            variant="standard"
                             labelId="remaining-term-label"
                             onChange={handleRemainingTermChange}
                             value={props.store.remainingTerm}
                         >
-                            {Object.entries(props.store.interestRateList).map(([key, obj], index) => { return (
-                                <MenuItem key={key} value={obj.term}>{obj.term}</MenuItem>
-                            )})}
+                            {props.store.interestRateList.map((term, index) => (
+                            <MenuItem key={index} value={term}>
+                                {term}
+                            </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Box>
                 <Box sx={{ p: 2 }}>
-                    <TextField label={intl.formatMessage({id: 'interest-rate'})} disabled fullWidth  
+                    <TextField label={intl.formatMessage({id: 'interest-rate'})} fullWidth onChange={handleIntrestChange}    
                         variant="standard" value={props.store.interestRate}/>
                 </Box>
                 <Box sx={{ p: 2 }}>

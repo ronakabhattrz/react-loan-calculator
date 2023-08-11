@@ -2,14 +2,20 @@ import { useReducer } from 'react';
 
 const initialState = {
   initialized: false,
-  loanAmount: 500000,
+  loanAmount: 50000,
   remainingTerm: '',
-  interestRate: '',
+  interestRate: 6.25,
   interestRateList:[],
   firstName: '',
   lastName: '',
   emailAddress: ''
 };
+
+// Loop from 1 to 300 and add each number to the interestRateList array
+for (let i = 1; i <= 240; i++) {
+  initialState.interestRateList.push(i);
+}
+
 
 function reducer(state, action) {
   switch (action.type) {
